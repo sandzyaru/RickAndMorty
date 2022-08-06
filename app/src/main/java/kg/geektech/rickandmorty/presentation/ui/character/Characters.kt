@@ -14,6 +14,7 @@ import kg.geektech.rickandmorty.data.models.Result
 import kg.geektech.rickandmorty.databinding.FragmentCharactersBinding
 import kg.geektech.rickandmorty.presentation.ui.adapter.CharactersAdapter
 import kg.geektech.rickandmorty.presentation.ui.base.BaseFragment
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -30,13 +31,19 @@ class Characters : BaseFragment<FragmentCharactersBinding, CharactersViewModel>(
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.getCharacters().apply {
-                    map {
-                        adapter.submitData(it)
-                    }
+                        collect(){
+                            adapter.submitData(it)
+                        }
                 }
             }
         }
     }
+
+    override fun initView() {
+        super.initView()
+        binding.recycler.adapter = adapter
+    }
+
 
     override fun inflateViewBinding(inflater: LayoutInflater): FragmentCharactersBinding {
         return FragmentCharactersBinding.inflate(inflater)

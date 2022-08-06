@@ -46,5 +46,4 @@ class OkHttp @Inject constructor() {
             else -> HttpLoggingInterceptor.Level.NONE
         }
     )
-
 }
