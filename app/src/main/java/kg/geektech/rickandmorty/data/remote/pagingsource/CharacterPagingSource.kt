@@ -10,11 +10,12 @@ import kg.geektech.rickandmorty.data.models.toDomain
 import kg.geektech.rickandmorty.data.remote.dao.CharacterDao
 import kg.geektech.rickandmorty.domain.model.toData
 import retrofit2.HttpException
-import java.io.IOException
 import javax.inject.Inject
 
-class CharacterPagingSource  @Inject constructor(private val characterApi: CharacterApi,
-                                                 private val dao: CharacterDao): PagingSource<Int, Result>() {
+class CharacterPagingSource
+@Inject constructor
+    (private val characterApi: CharacterApi,
+     private val dao: CharacterDao): PagingSource<Int, Result>() {
 
     private var status:String?= null
     private var name:String?= null
@@ -52,18 +53,16 @@ class CharacterPagingSource  @Inject constructor(private val characterApi: Chara
                     status =status,
                     gender = gender,
                     name = name)
-                response.body()?.results?.map { it.toDomain() }?.let { dao.insert(it) }
+            response.body()?.results?.map { it.toDomain() }?.let { dao.insert(it) }
+           // Log.e("DataSource", response.body()!!.results.toString())
 
-
-                val nextPageNumber: Int? = if(response.body()?.info?.next == null){
+            val nextPageNumber: Int? = if(response.body()?.info?.next == null){
                     null
                 }else{
                    Uri.parse(response.body()!!.info.next).getQueryParameter("page")?.toInt()
                 }
 
                 LoadResult.Page(data = response.body()!!.results, prevKey = null, nextKey = nextPageNumber)
-        }catch (ioException: IOException) {
-           LoadResult.Error(ioException)
         } catch (httpException: HttpException) {
             localData(params,httpException)
         } catch (exception: Exception) {
@@ -73,8 +72,9 @@ class CharacterPagingSource  @Inject constructor(private val characterApi: Chara
 
     private suspend fun localData(params: LoadParams<Int>, exception: Exception): LoadResult<Int, Result>{
         val pageNumberLocal = params.key ?: 0
-        val responseRoom = dao.getAllCharacters(params.loadSize,status,name)
-        return if(responseRoom.isEmpty()) {
+        val responseRoom = dao.getAllCharacters(params.loadSize,status,gender,name)
+        Log.e("DataSource", responseRoom.toString())
+        return if(responseRoom.isNotEmpty()) {
             LoadResult.Page(
                 responseRoom.map { it.toData() },
                 prevKey = if (pageNumberLocal == 0) null else pageNumberLocal - 1,
@@ -86,9 +86,8 @@ class CharacterPagingSource  @Inject constructor(private val characterApi: Chara
     }
 
     override fun getRefreshKey(state: PagingState<Int, Result>): Int? {
-        return state.anchorPosition?.let { anchorPosition ->
-            val anchorPage = state.closestPageToPosition(anchorPosition)
-            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
-
-        }    }
+        val anchorPosition = state.anchorPosition ?: return null
+        val anchorPage = state.closestPageToPosition(anchorPosition) ?: return null
+        return anchorPage.prevKey?.plus(1) ?: anchorPage.nextKey?.minus(1)
+    }
 }

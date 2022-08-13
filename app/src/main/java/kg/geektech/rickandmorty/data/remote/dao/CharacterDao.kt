@@ -9,11 +9,13 @@ import kg.geektech.rickandmorty.domain.model.ResultDomain
 @Dao
 interface CharacterDao {
 
-    @Query("SELECT * FROM resultDomain WHERE " +
-            "(:searchName IS NULL OR name LIKE '%' || :searchName || '%') " +
-            "AND " + "(:statusFilter IS NULL OR status LIKE '%' || :statusFilter || '%')" +
-            "AND id IN (SELECT id FROM resultDomain LIMIT :page) ")
-    suspend fun getAllCharacters(page: Int, searchName: String?, statusFilter: String?) : List<ResultDomain>
+    @Query("SELECT * FROM resultDomain WHERE (:nameFilter IS NULL OR name LIKE '%' || :nameFilter || '%') AND (:statusFilter IS NULL OR status LIKE '%' || :statusFilter || '%') AND (:genderFilter IS NULL OR gender LIKE '%' || :genderFilter || '%') AND id IN (SELECT id FROM resultDomain LIMIT :page) ")
+    suspend fun getAllCharacters(
+        page: Int,
+        statusFilter: String?,
+        genderFilter: String?,
+        nameFilter: String?
+    ) : List<ResultDomain>
 
     @Query("SELECT * FROM resultDomain WHERE id LIKE '%' || :ID || '%'")
     suspend fun getCharacterDetail(ID: Int): ResultDomain

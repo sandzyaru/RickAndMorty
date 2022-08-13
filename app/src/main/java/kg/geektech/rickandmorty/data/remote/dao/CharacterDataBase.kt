@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import kg.geektech.rickandmorty.domain.model.ResultDomain
 
 
-@Database(entities = [ResultDomain::class], version = 1,exportSchema = false)
+@Database(entities = [ResultDomain::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class CharacterDataBase:RoomDatabase() {
     abstract fun characterDao():CharacterDao
@@ -27,7 +27,6 @@ abstract class CharacterDataBase:RoomDatabase() {
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
-                // return instance
                 instance
             }
         }
