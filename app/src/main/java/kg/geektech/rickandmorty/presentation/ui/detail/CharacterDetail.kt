@@ -28,15 +28,12 @@ class CharacterDetail :BaseFragment<FragmentCharacterDetailBinding, CharacterDet
     override fun initView() {
         super.initView()
         viewLifecycleOwner.lifecycleScope.launch {
-
          viewModel.getCharacter(args.id,isNetwork).collect{
              binding.image.loadWithGlide(it.image)
              binding.name.text = it.name
              binding.gender.text = it.gender
              binding.species.text = it.species
-             binding.status.text = it.status
-
-         }
+             binding.status.text = it.status }
         }
     }
 
@@ -47,23 +44,19 @@ class CharacterDetail :BaseFragment<FragmentCharacterDetailBinding, CharacterDet
         }
     }
 
-
     override fun checkInternet() {
             super.checkInternet()
         NetworkStatusHelper(requireContext()).observe(viewLifecycleOwner) {
             if (it == NetworkStatus.Available) {
                 isNetwork = true
-                initView()
             } else {
                 isNetwork = false
-                Toast.
-                makeText(requireContext(), "No internet connection", Toast.LENGTH_LONG)
-                    .show()
+                Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_LONG).show()
             }
         }
-        }
+    }
 
-        override fun inflateViewBinding(inflater: LayoutInflater): FragmentCharacterDetailBinding {
+    override fun inflateViewBinding(inflater: LayoutInflater): FragmentCharacterDetailBinding {
             return FragmentCharacterDetailBinding.inflate(inflater)
         }
-    }
+}
