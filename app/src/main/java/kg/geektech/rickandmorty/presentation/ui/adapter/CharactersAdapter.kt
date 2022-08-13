@@ -7,30 +7,31 @@ import androidx.recyclerview.widget.RecyclerView
 import kg.geektech.rickandmorty.data.models.Result
 import kg.geektech.rickandmorty.databinding.ItemCharacterBinding
 import kg.geektech.rickandmorty.presentation.ui.base.BaseDiffUtil
+import kg.geektech.rickandmorty.presentation.ui.ext.loadWithGlide
 
-class CharactersAdapter( private val onItemClick: ((id: Int) -> Unit)? = null) :
+class CharactersAdapter( private val onItemClick:((id: Int) -> Unit)? = null) :
     PagingDataAdapter<Result,CharactersAdapter.CharactersViewHolder>(BaseDiffUtil()) {
-
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
         return CharactersViewHolder(ItemCharacterBinding.inflate(
             LayoutInflater.from(parent.context),parent,false))
     }
+
     inner class CharactersViewHolder(private val binding: ItemCharacterBinding):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(result: Result){
             binding.name.text = result.name
             binding.status.text = result.status
             binding.type.text = result.type
+            result.image.let { binding.image.loadWithGlide(it) }
+            itemView.setOnClickListener{
+                onItemClick?.invoke(result.url.filter (Char::isDigit).toInt())
 
-         /*   itemView.setOnClickListener{
-                onItemClick?.invoke(resultUI.url.filter (Char::isDigit).toInt())
-            }*/
+            }
         }
     }
 }

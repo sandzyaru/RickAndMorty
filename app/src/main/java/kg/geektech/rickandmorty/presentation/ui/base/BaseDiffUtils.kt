@@ -1,10 +1,11 @@
 package kg.geektech.rickandmorty.presentation.ui.base
 
 import androidx.recyclerview.widget.DiffUtil
+import kg.geektech.rickandmorty.data.models.Result
 
-class BaseDiffUtil<S, T : BaseDiffModel<S>> : DiffUtil.ItemCallback<T>() {
-    override fun areItemsTheSame(oldItem: T, newItem: T) =
-        oldItem.name == newItem.name
 
-    override fun areContentsTheSame(oldItem: T, newItem: T) = oldItem == newItem
+class BaseDiffUtil : DiffUtil.ItemCallback<Result>() {
+    override fun areItemsTheSame(oldItem: Result, newItem: Result) =
+        oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: Result, newItem: Result) = oldItem == newItem
 }

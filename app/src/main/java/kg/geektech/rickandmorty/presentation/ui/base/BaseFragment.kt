@@ -21,12 +21,14 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(@LayoutRes layou
         initView()
         initViewModel()
         initListener()
+        initSearchView()
     }
 
     open fun initView() {} //вьюшки
     open fun initListener() {} //логика кликов
     open fun initViewModel() {} //обзерверы
     open fun checkInternet() {}
+    open fun initSearchView() {}
 
 
 

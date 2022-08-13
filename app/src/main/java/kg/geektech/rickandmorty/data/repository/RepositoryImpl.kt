@@ -1,31 +1,32 @@
-package kg.geektech.rickandmorty.data.repository
+﻿package kg.geektech.rickandmorty.data.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+
+import androidx.paging.PagingSource
 import kg.geektech.rickandmorty.data.apiservice.CharacterApi
 import kg.geektech.rickandmorty.data.models.Result
+import kg.geektech.rickandmorty.data.remote.dao.CharacterDao
 import kg.geektech.rickandmorty.data.remote.pagingsource.CharacterPagingSource
-import kg.geektech.rickandmorty.domain.common.Either
+import kg.geektech.rickandmorty.domain.model.toData
 import kg.geektech.rickandmorty.domain.repository.Repository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class RepositoryImpl @Inject constructor(private val characterApi: CharacterApi):Repository {
+class RepositoryImpl @Inject constructor(private val characterApi: CharacterApi,
+                                         private val characterPagingSource: CharacterPagingSource,
+                                         private val dao: CharacterDao):Repository {
 
-    override suspend fun getCharacters(): Flow<PagingData<Result>> {
-        return Pager(PagingConfig(
-            pageSize = 30,
-            enablePlaceholders = true),
-            pagingSourceFactory = {CharacterPagingSource(characterApi)}).flow
-    }
+   override  fun getCharacters(status: String?, name: String?, gender:String?
+   ): PagingSource<Int,Result> {
+       characterPagingSource.setGenderFilter(gender)
+       characterPagingSource.setStatusFilter(status)
+       characterPagingSource.setNameFilter(name)
+       return characterPagingSource
+   }
 
-    override suspend fun getCharacterId(id:Int): Flow<Either<String, Result>> {
-        return flow {
+    override suspend fun getCharacterId(id:Int,isNetwork:Boolean): Result {
+        return if(isNetwork){
             characterApi.getCharacterDetail(id)
+        }else{
+            dao.getCharacterDetail(id).toData()
         }
     }
-
-
 }

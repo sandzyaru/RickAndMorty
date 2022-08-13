@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="16dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/clear"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:gravity="center"
+                android:text="@string/clear"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="@string/character_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/characterName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             />
+
+        <TextView
+            android:id="@+id/textView"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="5dp"
+            android:text="@string/status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputLayout"
+            />
+
+        <RadioGroup
+            android:id="@+id/rgStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <RadioButton
+                android:id="@+id/rbAlive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/alive"
+                 />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+
+            <RadioButton
+                android:id="@+id/rbDead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dead" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+
+            <RadioButton
+                android:id="@+id/rbUnknown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/unknown" />
+
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="5dp"
+            android:text="@string/gender"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rgStatus" />
+
+        <RadioGroup
+            android:id="@+id/rgGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+            <RadioButton
+                android:id="@+id/rbFemale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/female"
+                 />
+
+            <View
+                android:id="@+id/divider6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+
+            <RadioButton
+                android:id="@+id/rbMale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/male" />
+
+            <View
+                android:id="@+id/divider7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+
+            <RadioButton
+                android:id="@+id/rbGenderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/genderless" />
+
+            <View
+                android:id="@+id/divider8"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+
+            <RadioButton
+                android:id="@+id/rbgUnknown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/unknown" />
+
+        </RadioGroup>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/btnApply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:backgroundTint="@color/black"
+        android:text="@string/apply"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/rgGender" />
+
+</LinearLayout>
