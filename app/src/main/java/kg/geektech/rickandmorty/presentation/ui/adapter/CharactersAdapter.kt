@@ -6,8 +6,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kg.geektech.rickandmorty.data.models.Result
 import kg.geektech.rickandmorty.databinding.ItemCharacterBinding
-import kg.geektech.rickandmorty.presentation.ui.base.BaseDiffUtil
 import kg.geektech.rickandmorty.presentation.ui.ext.loadWithGlide
+import kg.geektech.rickandmorty.presentation.utils.BaseDiffUtil
 
 class CharactersAdapter( private val onItemClick:((id: Int) -> Unit)? = null) :
     PagingDataAdapter<Result,CharactersAdapter.CharactersViewHolder>(BaseDiffUtil()) {
