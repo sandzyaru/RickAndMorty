@@ -2,7 +2,7 @@ package kg.geektech.rickandmorty.data.models
 
 
 import com.google.gson.annotations.SerializedName
-import kg.geektech.rickandmorty.domain.model.ResultDomain
+import kg.geektech.rickandmorty.domain.models.ResultDomain
 
 data class Result(
     @SerializedName("created")

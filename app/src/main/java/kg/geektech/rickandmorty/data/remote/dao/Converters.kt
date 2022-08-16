@@ -1,7 +1,7 @@
 package kg.geektech.rickandmorty.data.remote.dao
 
 import androidx.room.TypeConverter
-import kg.geektech.rickandmorty.domain.model.ResultDomain
+import kg.geektech.rickandmorty.domain.models.ResultDomain
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

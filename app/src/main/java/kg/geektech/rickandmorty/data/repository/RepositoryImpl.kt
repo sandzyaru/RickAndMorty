@@ -6,7 +6,7 @@ import kg.geektech.rickandmorty.data.apiservice.CharacterApi
 import kg.geektech.rickandmorty.data.models.Result
 import kg.geektech.rickandmorty.data.remote.dao.CharacterDao
 import kg.geektech.rickandmorty.data.remote.pagingsource.CharacterPagingSource
-import kg.geektech.rickandmorty.domain.model.toData
+import kg.geektech.rickandmorty.domain.models.toData
 import kg.geektech.rickandmorty.domain.repository.Repository
 import javax.inject.Inject
 

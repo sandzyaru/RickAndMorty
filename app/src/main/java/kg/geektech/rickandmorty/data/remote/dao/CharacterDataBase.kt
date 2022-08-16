@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import kg.geektech.rickandmorty.domain.model.ResultDomain
+import kg.geektech.rickandmorty.domain.models.ResultDomain
 
 
-@Database(entities = [ResultDomain::class], version = 1)
+@Database(entities = [ResultDomain::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class CharacterDataBase:RoomDatabase() {
     abstract fun characterDao():CharacterDao

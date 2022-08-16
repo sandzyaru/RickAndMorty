@@ -8,7 +8,7 @@ import kg.geektech.rickandmorty.data.apiservice.CharacterApi
 import kg.geektech.rickandmorty.data.models.Result
 import kg.geektech.rickandmorty.data.models.toDomain
 import kg.geektech.rickandmorty.data.remote.dao.CharacterDao
-import kg.geektech.rickandmorty.domain.model.toData
+import kg.geektech.rickandmorty.domain.models.toData
 import retrofit2.HttpException
 import javax.inject.Inject
 
